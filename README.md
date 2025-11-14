@@ -48,6 +48,23 @@ Pass maps/vectors/etc if it pleases you:
 ;; => "{\"name\":\"bart\",\"action\":alert('xss')}"
 ```
 
+Some interpolation examples:
+
+```clojure
+(def user {:name "bart"})
+
+[:div {:data-text (js/str "`Hello, #{ (:name user) }`")}]
+;; => [:div {:data-text "`Hello, \"bart\"`"}]
+
+[:div {:data-text (js/str "`Hello, #(:name user)`")}]
+;; => [:div {:data-text "`Hello, \"bart\"`"}]
+
+(def $signal "$foo")
+[:div {:data-init (js/str "#!{ $signal }=75")}]
+;; => [:div {:data-init "$foo=75"}]
+
+```
+
 ### com.knowclick.safe-js/!
 
 Given a string (presumably of javascript code), returns an object that will allow that string to pass through escaping functions and macros un-escaped.
