@@ -156,19 +156,20 @@
   (loop [forms forms
          out   []
          last-str nil]
-    (if-let [x (first forms)]
-      (recur (rest forms)
-             (if (string? x)
-               out
-               (if last-str
-                 (conj out last-str x)
-                 (conj out x)))
-             (if (string? x)
-               (c/str last-str x)
-               nil))
+    (if (seq forms)
+      (let [x (first forms)]
+        (recur (rest forms)
+               (if (string? x)
+                 out
+                 (if last-str
+                   (conj out last-str x)
+                   (conj out x)))
+               (if (string? x)
+                 (c/str last-str x)
+                 nil)))
       (if last-str
-        (conj out last-str)
-        out))))
+          (conj out last-str)
+          out))))
 
 (defmacro str
   "Accepts one or more forms, typically strings.
@@ -186,8 +187,9 @@
 
   With thanks to Chas Emerick (https://cemerick.com/blog/2009/12/04/string-interpolation-in-clojure.html)"
   [& forms]
-  (let [forms (join-strings forms)
-        forms (->> forms
+  (let [forms (->> forms
+                   (remove nil?)
+                   join-strings
                    (mapcat (fn [x]
                              (if (string? x)
                                (interpolate x)

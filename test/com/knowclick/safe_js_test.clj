@@ -8,6 +8,12 @@
     (is (= (js/str "console.log('hello')")
            (str "console.log('hello')"))))
 
+  (testing "Handles nil"
+    (is (= (js/str "foo" nil "bar")
+           (str "foobar")))
+
+    (is (= (js/str nil) (str ""))))
+
   (testing "String interpolation"
     (let [var "hello"]
       (is (= (js/str "console.log(#{ var })")
