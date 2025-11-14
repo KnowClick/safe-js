@@ -12,7 +12,7 @@ When user inputs could plausibly be included in these javascript snippets (e.g. 
 
 Datastar-expressions is a noble attempt at implementing these snippets with Clojure's syntax, but my measurements have shown that there's a lot of overhead from translating those snippets to strings.
 
-This library requires us to write javascript in strings, which we all agree is repulsive, but do so safely and with little overhead.
+This library requires us to write javascript in strings, which we all agree is repulsive, but to do so safely and with little overhead.
 
 ## API
 
@@ -24,7 +24,7 @@ Provides 4 interpolation forms in strings:
 - #{} to insert escaped forms
 - #() to insert escaped invocations
 - #!{} to insert unescaped forms
-- #!() to insert unescaped forms invocations
+- #!() to insert unescaped invocations
 
 Returns an escaped string.
 
@@ -45,6 +45,7 @@ Pass maps/vectors/etc if it pleases you:
 
 ;; And if you want Bart to really get into trouble:
 (def user {:name "bart" :action (js/! "alert('xss')")})
+(js/str user)
 ;; => "{\"name\":\"bart\",\"action\":alert('xss')}"
 ```
 
