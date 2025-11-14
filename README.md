@@ -14,17 +14,6 @@ Datastar-expressions is a noble attempt at implementing these snippets with Cloj
 
 This library requires us to write javascript in strings, which we all agree is repulsive, but do so safely and with little overhead.
 
-## Examples
-
-```clojure
-(require '[com.knowclick.safe-js :as js])
-
-(def user-input "alert('xss')")
-
-(js/str "console.log(" user-input ")")
-;; => "console.log(\"alert('xss')\")"
-```
-
 ## API
 
 ### com.knowclick.safe-js/str
