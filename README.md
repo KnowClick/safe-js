@@ -59,3 +59,7 @@ Sanitize some data. Data wrapped with `!` are not escaped.
 ### com.knowclick.safe-js/str!
 
 Like `str` but wraps the result in `!`.
+
+## More Examples
+
+See the tests for more examples.
